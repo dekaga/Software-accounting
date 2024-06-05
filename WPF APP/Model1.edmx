@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Krivosheev_zadanieModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="Nme" Type="nvarchar" MaxLength="50" />
+          <Property Name="Surnme" Type="nvarchar" MaxLength="50" />
+          <Property Name="Post" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="IsAdmin" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Компьютер">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="номер_компьютера" Type="varchar" MaxLength="20" />
+          <Property Name="Ip_адрес" Type="varchar" MaxLength="15" />
+          <Property Name="кабинет" Type="varchar" MaxLength="20" />
+          <Property Name="характеристики" Type="text" />
+        </EntityType>
+        <EntityType Name="Программа">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="название" Type="varchar" MaxLength="255" />
+          <Property Name="версия" Type="varchar" MaxLength="50" />
+          <Property Name="класс" Type="varchar" MaxLength="50" />
+          <Property Name="объем" Type="int" />
+        </EntityType>
+        <EntityType Name="Установка">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="код_программы" Type="int" />
+          <Property Name="номер_компьютера" Type="int" />
+          <Property Name="дата_установки" Type="date" />
+          <Property Name="режим_установки" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK__Установка__код_п__3B75D760">
+          <End Role="Программа" Type="Self.Программа" Multiplicity="0..1" />
+          <End Role="Установка" Type="Self.Установка" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Программа">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Установка">
+              <PropertyRef Name="код_программы" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Установка__номер__3C69FB99">
+          <End Role="Компьютер" Type="Self.Компьютер" Multiplicity="0..1" />
+          <End Role="Установка" Type="Self.Установка" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Компьютер">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Установка">
+              <PropertyRef Name="номер_компьютера" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Krivosheev_zadanieModelContainer">
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Компьютер" EntityType="Self.Компьютер" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Программа" EntityType="Self.Программа" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Установка" EntityType="Self.Установка" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Установка__код_п__3B75D760" Association="Self.FK__Установка__код_п__3B75D760">
+            <End Role="Программа" EntitySet="Программа" />
+            <End Role="Установка" EntitySet="Установка" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Установка__номер__3C69FB99" Association="Self.FK__Установка__номер__3C69FB99">
+            <End Role="Компьютер" EntitySet="Компьютер" />
+            <End Role="Установка" EntitySet="Установка" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Krivosheev_zadanieModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="Nme" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surnme" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Post" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsAdmin" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Компьютер">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="номер_компьютера" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Ip_адрес" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="кабинет" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="характеристики" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Установка" Relationship="Self.FK__Установка__номер__3C69FB99" FromRole="Компьютер" ToRole="Установка" />
+        </EntityType>
+        <EntityType Name="Программа">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="название" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="версия" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="класс" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="объем" Type="Int32" />
+          <NavigationProperty Name="Установка" Relationship="Self.FK__Установка__код_п__3B75D760" FromRole="Программа" ToRole="Установка" />
+        </EntityType>
+        <EntityType Name="Установка">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="код_программы" Type="Int32" />
+          <Property Name="номер_компьютера" Type="Int32" />
+          <Property Name="дата_установки" Type="DateTime" Precision="0" />
+          <Property Name="режим_установки" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Компьютер" Relationship="Self.FK__Установка__номер__3C69FB99" FromRole="Установка" ToRole="Компьютер" />
+          <NavigationProperty Name="Программа" Relationship="Self.FK__Установка__код_п__3B75D760" FromRole="Установка" ToRole="Программа" />
+        </EntityType>
+        <Association Name="FK__Установка__номер__3C69FB99">
+          <End Role="Компьютер" Type="Self.Компьютер" Multiplicity="0..1" />
+          <End Role="Установка" Type="Self.Установка" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Компьютер">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Установка">
+              <PropertyRef Name="номер_компьютера" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Установка__код_п__3B75D760">
+          <End Role="Программа" Type="Self.Программа" Multiplicity="0..1" />
+          <End Role="Установка" Type="Self.Установка" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Программа">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Установка">
+              <PropertyRef Name="код_программы" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Krivosheev_zadanieEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="Компьютер" EntityType="Self.Компьютер" />
+          <EntitySet Name="Программа" EntityType="Self.Программа" />
+          <EntitySet Name="Установка" EntityType="Self.Установка" />
+          <AssociationSet Name="FK__Установка__номер__3C69FB99" Association="Self.FK__Установка__номер__3C69FB99">
+            <End Role="Компьютер" EntitySet="Компьютер" />
+            <End Role="Установка" EntitySet="Установка" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Установка__код_п__3B75D760" Association="Self.FK__Установка__код_п__3B75D760">
+            <End Role="Программа" EntitySet="Программа" />
+            <End Role="Установка" EntitySet="Установка" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Krivosheev_zadanieModelContainer" CdmEntityContainer="Krivosheev_zadanieEntities1">
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Krivosheev_zadanieModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Nme" ColumnName="Nme" />
+                <ScalarProperty Name="Surnme" ColumnName="Surnme" />
+                <ScalarProperty Name="Post" ColumnName="Post" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Компьютер">
+            <EntityTypeMapping TypeName="Krivosheev_zadanieModel.Компьютер">
+              <MappingFragment StoreEntitySet="Компьютер">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="номер_компьютера" ColumnName="номер_компьютера" />
+                <ScalarProperty Name="Ip_адрес" ColumnName="Ip_адрес" />
+                <ScalarProperty Name="кабинет" ColumnName="кабинет" />
+                <ScalarProperty Name="характеристики" ColumnName="характеристики" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Программа">
+            <EntityTypeMapping TypeName="Krivosheev_zadanieModel.Программа">
+              <MappingFragment StoreEntitySet="Программа">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="название" ColumnName="название" />
+                <ScalarProperty Name="версия" ColumnName="версия" />
+                <ScalarProperty Name="класс" ColumnName="класс" />
+                <ScalarProperty Name="объем" ColumnName="объем" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Установка">
+            <EntityTypeMapping TypeName="Krivosheev_zadanieModel.Установка">
+              <MappingFragment StoreEntitySet="Установка">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="код_программы" ColumnName="код_программы" />
+                <ScalarProperty Name="номер_компьютера" ColumnName="номер_компьютера" />
+                <ScalarProperty Name="дата_установки" ColumnName="дата_установки" />
+                <ScalarProperty Name="режим_установки" ColumnName="режим_установки" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
