@@ -29,5 +29,6 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Добавить" Grid.Row="1" HorizontalAlignment="Left" Name="BtnAdd" Click="BtnAdd_Click"/>
+        <Button Content="Удалить" Grid.Row="1" HorizontalAlignment="Center" Name="BtnDelete" Click="BtnDelete_Click"/>
     </Grid>
 </Page>

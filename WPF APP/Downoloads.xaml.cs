@@ -35,5 +35,23 @@ namespace WPF_APP
         {
             Manager.MainFrame.Navigate(new AddDownoloads((sender as Button).DataContext as Установка));
         }
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            var hotelsForRemoving = DGridHotels.SelectedItems.Cast<Установка>().ToList();
+            if (MessageBox.Show($"Вы точно хотите удалить следующие{hotelsForRemoving.Count()} элементов?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Krivosheev_zadanieEntities1.GetContext().Установка.RemoveRange(hotelsForRemoving);
+                    Krivosheev_zadanieEntities1.GetContext().SaveChanges();
+                    MessageBox.Show("Данные удалены!");
+                    DGridHotels.ItemsSource = Krivosheev_zadanieEntities1.GetContext().Установка.ToList();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+            }
+        }
     }
 }
