@@ -31,28 +31,35 @@ namespace WPF_APP
         }
         private void Loginer_Click(object sender, RoutedEventArgs e)
         {
+            // Проверяем, совпадают ли введенные данные с данными администратора
             if (txtUsername.Text == "user1" && Pas.Password == "user1")
             {
+                // Если совпадают, переходим на страницу администратора
                 Manager.MainFrame.Navigate(new Admin());
                 return;
             }
+            // Устанавливаем количество попыток входа
             int Try = 3;
+            // Пока количество попыток не равно 0
             if (Try != 0)
             {
                 try
                 {
+                    // Ищем пользователя с введенными данными в БД
                     var search_user = Krivosheev_zadanieEntities1.GetContext().Users.Where(p => p.Name == txtUsername.Text && p.Password == Pas.Password).Single();
-
+                    // Если введены данные администратора
                     if (txtUsername.Text == "admin" && Pas.Password == "admin") 
                     {
+                        // Переходим на страницу компьютеров
                         this.NavigationService.Navigate(new HotelsPage());
                     }
 
                     else
                         Console.WriteLine("Пароль");
-
+                    // Выводим имя найденного пользователя
                     Console.WriteLine($"{search_user.Name}");
                 }
+                // Если пользователь не найден, выводим сообщение об ошибке
                 catch
                 {
                     MessageBox.Show("Ошибка, что-то неправильно");
